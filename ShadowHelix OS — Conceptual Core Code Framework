@@ -1,0 +1,135 @@
+1. System Architecture Overview
+HelixCore Kernel: Custom microkernel managing processes, memory, and hardware abstraction.
+
+ShadowLayer: Compatibility bridge that loads Windows, macOS, and Linux binaries/extensions.
+
+NovaShell UI: Modular, extensible UI system.
+
+2. Core Data Structures (C-like pseudocode)
+// Process Control Block - universal for all OS types
+typedef struct Process {
+    int pid;
+    enum { WIN_PROC, MAC_PROC, LINUX_PROC, SHX_NATIVE } type;
+    void* memory_space;   // Pointer to virtual address space
+    void* entry_point;
+    struct FileDescriptorTable* fd_table;
+    struct Process* parent;
+    int priority;
+    State state;         // RUNNING, WAITING, BLOCKED, etc.
+} Process;
+
+// Abstract File System Interface
+typedef struct FileSystem {
+    char* fs_name;
+    int (*mount)(const char* device);
+    int (*unmount)(const char* device);
+    FileHandle* (*open)(const char* path, int flags);
+    int (*read)(FileHandle* fh, void* buffer, int size);
+    int (*write)(FileHandle* fh, const void* buffer, int size);
+    int (*close)(FileHandle* fh);
+    // ... more ops
+} FileSystem;
+
+// ShadowPkg Universal Package Descriptor
+typedef struct ShadowPkg {
+    char name[64];
+    char version[16];
+    enum { SHX_NATIVE, WIN_APP, MAC_APP, LINUX_APP } app_type;
+    void* entry_point;
+    void* resources;
+    Permissions permissions;
+} ShadowPkg;
+
+3. Process Loading (Compatibility Bridge) — simplified pseudocode
+int load_process(const char* path) {
+    ShadowPkg pkg = parse_package(path);
+
+    switch(pkg.app_type) {
+        case WIN_APP:
+            return ShadowLayer_load_windows(pkg);
+        case MAC_APP:
+            return ShadowLayer_load_macos(pkg);
+        case LINUX_APP:
+            return ShadowLayer_load_linux(pkg);
+        case SHX_NATIVE:
+            return HelixCore_load_native(pkg);
+        default:
+            return -1; // Unsupported
+    }
+}
+
+4. Kernel Scheduler Loop — simplified
+void scheduler_loop() {
+    while(1) {
+        Process* next = HelixCore_select_next_process();
+        if (next == NULL) {
+            idle();
+            continue;
+        }
+        HelixCore_switch_to_process(next);
+        // Process runs until yield, exit, or interrupt
+    }
+}
+
+5. NovaShell UI Event Dispatch Example
+typedef enum {
+    EVENT_MOUSE_CLICK,
+    EVENT_KEY_PRESS,
+    EVENT_WINDOW_RESIZE,
+    // ...
+} EventType;
+
+typedef struct {
+    EventType type;
+    int x, y;
+    int key_code;
+    int modifiers;
+} Event;
+
+void NovaShell_dispatch_event(Event* e) {
+    // Route event to focused window/component
+    Window* w = NovaShell_get_focused_window();
+    if (w != NULL) {
+        w->handle_event(w, e);
+    }
+}
+
+6. Example: ShadowPkg Loader Skeleton (C-style)
+ShadowPkg parse_package(const char* path) {
+    ShadowPkg pkg;
+
+    // Open file, read header
+    FileHandle* fh = open_file(path);
+    read_header(fh, &pkg);
+
+    // Determine app type by signature
+    if (is_pe_executable(fh)) {
+        pkg.app_type = WIN_APP;
+    } else if (is_mach_o(fh)) {
+        pkg.app_type = MAC_APP;
+    } else if (is_elf(fh)) {
+        pkg.app_type = LINUX_APP;
+    } else {
+        pkg.app_type = SHX_NATIVE;
+    }
+
+    // Load entry point and resources
+    pkg.entry_point = get_entry_point(fh);
+
+    close_file(fh);
+    return pkg;
+}
+
+7. System Initialization Sequence (Main kernel entry)
+void kernel_main() {
+    initialize_hardware();
+    initialize_memory_manager();
+    initialize_process_manager();
+    initialize_filesystem_manager();
+    initialize_shadowlayer();
+
+    NovaShell_init();
+    load_default_services();
+
+    scheduler_loop();
+}
