@@ -17,7 +17,10 @@
 
 > You don’t need to choose between systems — **ShadowHelix runs them all.**
 
----
+<img width="1664" height="928" alt="1776770205" src="https://github.com/user-attachments/assets/fabd5436-0d4e-456f-9cc3-cba9b88c42c2" />
+
+
+
 
 ## 🔧 Core Features
 
