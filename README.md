@@ -1,6 +1,8 @@
 # ShadowHelix
 # ShadowHelix Operating System
 
+WILL BE CHANGING THIS OPERATING SYSTEM TO BE STAND ALONE & WITHOUT 3 OPERATING SYSTEMS!
+
 **ShadowHelix** is a true **Tribrid Operating System** — created from scratch to combine the most powerful, secure, and flexible features of **Windows**, **macOS**, and **Linux** into one seamless experience.
 
 Due to the Legal and Technical Caveats, some of the things within the Windows/Mac, and Linux must be changed, there for its based on them but not them at all.
