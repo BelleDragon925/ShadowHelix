@@ -3,7 +3,8 @@
 
 **ShadowHelix** is a true **Tribrid Operating System** — created from scratch to combine the most powerful, secure, and flexible features of **Windows**, **macOS**, and **Linux** into one seamless experience.
 
-"C:\Users\xovir\Desktop\1780757620.png"
+<img width="1664" height="928" alt="1780757620" src="https://github.com/user-attachments/assets/278f887c-6a16-4779-9b2a-2a7eba90952d" />
+
 
 Due to the Legal and Technical Caveats, some of the things within the Windows/Mac, and Linux must be changed, there for its based on them but not them at all.
 
