@@ -81,13 +81,8 @@ auditable, and governed by standardized peer review processes. Documentation, is
 ShadowHelix provides a unified execution environment, enforces data sovereignty by design, and scales across hardware generations without compromise. The system architecture, 
 compatibility matrices, security protocols, and hardware abstraction modules are documented for review and implementation. 
 
-## 💻 Install in 3 Steps(Not Ready for this step)
+<img width="1664" height="928" alt="1782225112" src="https://github.com/user-attachments/assets/05de0491-f12d-4f5b-be66-07a876c5c90b" />
 
-1. [Download the ISO](https://github.com/yourusername/ShadowHelix/releases)  
-2. Flash to USB using (Etcher)https://etcher.io or (Rufus)https://rufus.ie/en/  
-3. Boot & install (Live Mode or Dual Boot available)
-
-**Minimum:** 4 GB RAM • 32 GB disk • x86_64 or ARM CPU
 
 ---
 
@@ -97,4 +92,9 @@ compatibility matrices, security protocols, and hardware abstraction modules are
 
 > Not based on Windows. Not based on Linux. Not based on macOS.  
 > Built from the best of all three. This is ShadowHelix.
+>
+> <img width="1664" height="928" alt="1782225090" src="https://github.com/user-attachments/assets/3857cd37-a44d-4ee6-8542-c6a0187d3f25" />
+
+
+
 
